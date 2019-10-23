@@ -89,7 +89,6 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 		button: {
 			marginTop: 10,
 			fontSize: 13,
-			display: "block",
 			color: defaultTheme.palette.primary.light,
 			backgroundColor: defaultTheme.palette.primary.main,
 
@@ -122,12 +121,13 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 
 	const renderNewsButton = () : React.ReactNode => {
 		if(row.expanded) {
+			const href: string = `/singleNewsView/${row.data.news_id}`
 			return(
 				<Button
 					color="default"
 					className={classes.button}
-					onClick={(e) => {e.preventDefault()}}
 					disableFocusRipple
+					href={href}
 				>
 					Read the entire article
 				</Button>

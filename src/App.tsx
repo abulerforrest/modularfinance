@@ -2,14 +2,12 @@ import React from "react";
 import { observer } from "mobx-react";
 
 import {
-	makeStyles,
-	ThemeProvider
+	makeStyles
 } from '@material-ui/core/styles';
 
 import 'typeface-roboto';
 
 import { defaultTheme } from "./themes/defaultTheme";
-import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
@@ -72,8 +70,6 @@ const App = observer((props: AppProps) => {
 	const currentCompany: string = newsPageController.selectedCompany.authorName;
 
 	return (
-		<ThemeProvider theme={defaultTheme}>
-			<CssBaseline>
 				<div className="App">
 					<Top />
 					<div className={classes.pageContainer}>
@@ -131,8 +127,6 @@ const App = observer((props: AppProps) => {
 						/>
 					</div>
 				</div>
-			</CssBaseline>
-		</ThemeProvider>
 	);
 });
 
