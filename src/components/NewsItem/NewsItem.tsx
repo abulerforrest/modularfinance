@@ -155,13 +155,12 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 		let news: React.ReactNode = null;
 
 		if(row.expanded) {
-			const html = (
-				<div className={classes.html} dangerouslySetInnerHTML={{__html: row.getNewsText}} />
-			);
-			news = html;
+			news = <div
+				className={classes.html}
+				dangerouslySetInnerHTML={{__html: row.getNewsText}}
+			/>;
 		}
 		else {
-
 			news = row.getNewsText;
 		}
 

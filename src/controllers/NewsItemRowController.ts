@@ -11,6 +11,8 @@ import {
 	INewsPageController
 } from "../interfaces/NewsPageController";
 
+import { format } from "date-fns/esm";
+
 export class NewsItemRowController implements INewsItemRowController {
 
 	private readonly parentController: INewsPageController
@@ -48,7 +50,11 @@ export class NewsItemRowController implements INewsItemRowController {
 	}
 
 	public getFormattedDate(date: string): string {
-		return new Date(date).toDateString();
+		const formatted = format(
+			new Date(date),
+			'MMM, Mo, yyyy, hh:mm'
+		  )	
+		return formatted;
 	}
 
 	public parseAvailableTags(tags: string[]): any {

@@ -46,11 +46,11 @@ export class NewsDataService implements INewsDataService {
 
 		const serverDomain = "https://europe-west1-mfn-integration.cloudfunctions.net";
 		let url: string = "";
-		
+			
 		let newsItems: INewsItem[] = [];
 
 		if(authorId) {
-			url = `${serverDomain}/mfn-http-json-proxy?url=https://mfn.se/all/a.json?limit=${limit}&offset=${offset}.author.entity_id=${authorId}`;
+			url = `${serverDomain}/mfn-http-json-proxy?url=https://mfn.se/all/a.json?.author.entity_id=${authorId}&limit=${limit}&offset=${offset}`;
 		}
 		else {
 			url = `${serverDomain}/mfn-http-json-proxy?url=https://mfn.se/all/a.json?limit=${limit}&offset=${offset}`;
