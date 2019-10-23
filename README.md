@@ -55,6 +55,7 @@ Using:
 * [Material-UI](https://material-ui.com/) - For CSS styling
 * [fast-sort](https://github.com/snovakovic/fast-sort) - For quick array sorting
 * [date-fns](https://github.com/date-fns/date-fns) - For handing dates in Datepicker
+* [react-router](https://github.com/ReactTraining/react-router) - For routing
 
 ## Authors
 
