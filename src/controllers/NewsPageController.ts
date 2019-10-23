@@ -33,6 +33,7 @@ import {
 	defaultTableMultiSort,
 	defaultTableToggleSort
 } from "../helpers/helpers";
+import { format } from "date-fns/esm";
 
 export enum DatePickerType {
 	TO,
@@ -110,8 +111,14 @@ implements INewsPageController {
 
 			if(selectedToDate !== null && selectedFromDate !== null) {
 
-				dateRangeCheck = new Date(controller.data.content.publish_date) >= selectedFromDate
-				&& new Date(controller.data.content.publish_date) <= selectedToDate;
+				const publishDate: Date = new Date(controller.data.content.publish_date);
+				
+				const formattedPublishDate: string = format(publishDate, 'MM/dd/yyyy');
+				const formattedSelectedFromDate: string = format(selectedFromDate, 'MM/dd/yyyy');
+				const formattedSelectedToDate: string = format(selectedToDate, 'MM/dd/yyyy');
+
+				dateRangeCheck = new Date(formattedPublishDate) >= new Date(formattedSelectedFromDate)
+				&& new Date(formattedPublishDate) <=  new Date(formattedSelectedToDate);
 
 			}
 
