@@ -26,7 +26,7 @@ export class NewsDataService implements INewsDataService {
 				const index = authors.findIndex(
 					author => author.authorId === item.author.entity_id
 				);
-		
+
 				if(index < 0) {
 					authors.push({
 						authorId: item.author.entity_id,
@@ -34,7 +34,7 @@ export class NewsDataService implements INewsDataService {
 					});
 				}
 			});
-	
+
 			return authors;
 
 		} catch (error) {
@@ -67,6 +67,5 @@ export class NewsDataService implements INewsDataService {
 		return newsItems;
 		
 	}
-
 
 }

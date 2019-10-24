@@ -33,6 +33,7 @@ import {
 	defaultTableMultiSort,
 	defaultTableToggleSort
 } from "../helpers/helpers";
+
 import { format } from "date-fns/esm";
 
 export enum DatePickerType {
@@ -149,6 +150,13 @@ implements INewsPageController {
 			viewModel.selectedTypes.length > 0 ||
 			viewModel.selectedFromDate !== null ||
 			viewModel.selectedToDate !== null;
+	}
+
+	@action
+	public collapseAllRows() : void {
+		for(const controller of this.activeControllers) {
+			controller.expanded = false;
+		}
 	}
 
 	@action

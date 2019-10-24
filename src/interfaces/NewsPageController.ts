@@ -1,4 +1,3 @@
-
 import {
 	INewsItemRowController
 } from "./NewsItemRowController";
@@ -50,6 +49,8 @@ export interface INewsPageController
 	toggleShowAdvancedFilter: () => void
 	onChangePage: (page: number) => void
 
+	collapseAllRows: () => void
+	
 	onChangeRowsPerPage: (pageSize: number) => void
 	onKeyPress: (event: React.KeyboardEvent<HTMLDivElement>) => void
 

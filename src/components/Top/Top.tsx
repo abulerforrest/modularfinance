@@ -7,10 +7,10 @@ const useStyles = makeStyles({
 	root: {
 		display: "flex",
 		flexDirection: "column",
-		backgroundColor: "#176890",
-		justifyContent: "center",
+		padding: 10,
 		height: 120,
-		padding: 10
+		justifyContent: "center",
+		backgroundColor: "#176890"
 	}
 });
 

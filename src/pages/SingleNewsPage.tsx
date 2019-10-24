@@ -19,24 +19,34 @@ interface SingleNewsPageProps {
 }
 
 const useStyles = makeStyles({
+
 	root: {
 		display: "flex",
 		flexDirection: "column",
-		paddingLeft: 100,
-		paddingRight: 100
+		paddingLeft: 200,
+		paddingRight: 200
 	},
+
+	topBorder: {
+		display: "flex",
+		flexDirection: "column",
+		paddingLeft: 200,
+		paddingRight: 200
+	},
+
 	paper: {
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
+		border: 0,
 		paddingTop: 200,
 		height: "100vh",
 		borderRadius: 0,
-		border: 0,
-		backgroundColor: "rgba(28, 127, 165, 0.8)",
-		filter: "drop-shadow(0 -5mm 3mm rgba(28, 127, 165, 1))",
-		color: defaultTheme.palette.primary.light
+		filter: "drop-shadow(0 -5mm 3mm grey)",
+		color: defaultTheme.palette.primary.main,
+		backgroundColor: defaultTheme.palette.primary.light
 	}
+
 });
 
 const SingleNewsPage = observer((props: SingleNewsPageProps) => {
@@ -45,6 +55,7 @@ const SingleNewsPage = observer((props: SingleNewsPageProps) => {
 	return(
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
+				<div></div>
 				<Typography variant="h5" component="h3">
 				</Typography>
 				<Typography component="p">

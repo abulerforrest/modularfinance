@@ -29,7 +29,7 @@ const DatePicker = observer(({controller}: DatePickerProps) => {
 
 		datepicker: {
 			marginTop: 1,
-			marginLeft: 8,
+			marginLeft: 8
 		}
 
 	});
@@ -46,6 +46,7 @@ const DatePicker = observer(({controller}: DatePickerProps) => {
 					minDate={controller.getMinDate()}
 					maxDate={controller.getMaxDate()}
 					className={classes.datepicker}
+					color="secondary"
 					maxDateMessage=""
 					minDateMessage=""
 					margin="normal"

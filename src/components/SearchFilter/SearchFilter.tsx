@@ -15,8 +15,6 @@ import {
 	FormControl
 } from "@material-ui/core";
 
-import { newsLanguages } from "../../interfaces/NewsPageController";
-
 import {
 	Clear as ClearIcon,
 	Search as SearchIcon,
@@ -26,6 +24,10 @@ import {
 import Grow from '@material-ui/core/Grow';
 
 import IconButton from '@material-ui/core/IconButton';
+
+import {
+	newsLanguages
+} from "../../interfaces/NewsPageController";
 
 import {
 	INewsPageController
@@ -54,9 +56,9 @@ const SearchFilter = observer(({controller}: SearchFilterProps) => {
 		},
 
 		searchInputWrapper: {
-			minWidth: 1600,
 			display: "flex",
-			marginTop: 15
+			marginTop: 15,
+			minWidth: 1600
 		},
 
 		optionsWrapper: {
@@ -65,9 +67,9 @@ const SearchFilter = observer(({controller}: SearchFilterProps) => {
 			height: 163,
 			borderBottomLeftRadius: 4,
 			borderBottomRightRadius: 4,
-			backgroundColor: "#EDF8FA",
 			padding: "10px 20px 0 20px",
-			width: showAdvancedFilter? 520: 402
+			width: showAdvancedFilter? 520: 402,
+			backgroundColor: defaultTheme.palette.secondary.light
 			
 		},
 
@@ -95,15 +97,37 @@ const SearchFilter = observer(({controller}: SearchFilterProps) => {
 		},
 
 		button: {
+			height: 32,
 			fontSize: 12,
+			marginLeft: 12,
+			whiteSpace: "nowrap",
+			backgroundColor: "#45ABD3",
 			color: defaultTheme.palette.primary.light,
+	
+			"&:hover": {
+				color: defaultTheme.palette.primary.main
+			}
+		},
+	
+		clearButton: {
+			height: 32,
+			fontSize: 12,
 			marginLeft: 8,
 			whiteSpace: "nowrap",
-	
-			'&:hover': {
-				color: defaultTheme.palette.primary.light
+			backgroundColor: "#c8c8c8",
+			color: defaultTheme.palette.primary.light,
+
+			"&:hover": {
+				backgroundColor: "#7fdbff",
+				color: defaultTheme.palette.primary.main
 			}
-		  },
+		},
+
+		buttonWrapper: {
+			display: "flex",
+			height: 46,
+			alignItems: "center"
+		},
 
 		inputlabel: {
 			marginTop: 5
@@ -120,10 +144,6 @@ const SearchFilter = observer(({controller}: SearchFilterProps) => {
 			marginRight: 10
 		},
 
-		checkbox: {
-			fontSize: 14
-		},
-
 		input: {
 			marginLeft: defaultTheme.spacing(1),
 			flex: 1,
@@ -138,19 +158,17 @@ const SearchFilter = observer(({controller}: SearchFilterProps) => {
 
 		tagLabel: {
 			fontSize: 11,
-			textTransform: "uppercase",
-			fontWeight: "bold"
+			fontWeight: "bold",
+			textTransform: "uppercase"
 		},
 
 		tag: {
 			marginLeft: 5,
-			backgroundColor: defaultTheme.palette.primary.light,
-			color: defaultTheme.palette.primary.main
+			color: defaultTheme.palette.primary.main,
+			backgroundColor: defaultTheme.palette.primary.light
 		},
 
 		tagsContainer: {
-			color: defaultTheme.palette.primary.light,
-			marginTop: 5,
 			marginLeft: 20,
 			whiteSpace: "nowrap"
 		}
@@ -279,8 +297,7 @@ const SearchFilter = observer(({controller}: SearchFilterProps) => {
 	if(controller.showReset) {
 		clearFilterButton = (
 			<Button 
-				color="default"
-				className={classes.button}
+				className={classes.clearButton}
 				onClick={() => controller.onClearFilter()}
 			>
 				<ClearIcon className={classes.icon} /> Clear filter
@@ -311,18 +328,20 @@ const SearchFilter = observer(({controller}: SearchFilterProps) => {
 						<SearchIcon color="primary" />
 					</IconButton>
 				</Paper>
-				<Button 
-					color="default"
-					className={classes.button}
-					onClick={() => controller.toggleShowAdvancedFilter()}
-				>
-					<SettingsIcon className={classes.icon} />
-					{controller.showAdvancedFilter? "Hide Advanced": "Show Advanced"}
-				</Button>
-				<div className={classes.tagsContainer}>
-					{renderSelectedTags()}
+				<div className={classes.buttonWrapper}>
+					<Button 
+						color="default"
+						className={classes.button}
+						onClick={() => controller.toggleShowAdvancedFilter()}
+					>
+						<SettingsIcon className={classes.icon} />
+						{controller.showAdvancedFilter? "Hide Advanced": "Show Advanced"}
+					</Button>
+					<div className={classes.tagsContainer}>
+						{renderSelectedTags()}
+					</div>
+					{clearFilterButton}
 				</div>
-				{clearFilterButton}
 			</div>
 			{renderAdvancedOptions()}
 		</div>

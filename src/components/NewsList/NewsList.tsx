@@ -1,5 +1,5 @@
-import { observer } from "mobx-react";
 import * as React from "react";
+import { observer } from "mobx-react";
 
 import {
 	Fade,
@@ -68,18 +68,28 @@ const useStyles = makeStyles({
 	},
 
 	tableRow: {
-		background: defaultTheme.palette.secondary.dark,
-		textTransform: "uppercase"
+		textTransform: "uppercase",
+		background: defaultTheme.palette.secondary.light
 	},
 
 	paper: {
-		background: defaultTheme.palette.primary.light,
-		boxShadow: "none"
+		boxShadow: "none",
+		background: defaultTheme.palette.primary.light
 	},
 
 	tableFooter: {
 		borderRadius: 10,
-		background: "#EDF8FA"
+		background: defaultTheme.palette.secondary.light
+	},
+
+	emptyResultRow: {
+		height: 50,
+		margin: "20px 0 0 20px"
+	},
+
+	arrowUpCollapse: {
+		cursor: "pointer",
+		color: defaultTheme.palette.primary.main
 	}
 });
 
@@ -133,7 +143,7 @@ const NewsList = observer(({controller}: NewsListProps) => {
 			buttonElement = (
 				<Button
 					size="small"
-					color="secondary"
+					color="primary"
 					className={classes.button}
 					onClick={() => controller.clearSorts()}
 					disableRipple
@@ -145,11 +155,63 @@ const NewsList = observer(({controller}: NewsListProps) => {
 		return buttonElement;
 	}
 
+	const renderNewsItemRows = (): React.ReactNode => {
+
+		if(activeControllers.length > 0) {
+			return(
+				<TableBody>
+					{activeControllers.map((rowController: INewsItemRowController ) => (
+						<NewsItem
+							key={rowController.data.news_id}
+							row={rowController}
+						/>
+						)
+					)}
+				</TableBody>
+			);
+		}
+		else {
+			return(
+				<TableBody>
+					<Typography
+						variant="h6"
+						component="h3"
+						color="primary"
+						className={classes.emptyResultRow}
+					>
+						Filter ended with no results.
+					</Typography>
+				</TableBody>
+			);
+		}
+	}
+
+	const renderLoading = (): React.ReactNode => {
+		return (
+			<TableRow>
+				<TableCell>
+					<Fade
+						in={loading}
+						style={{
+							transitionDelay: loading ? "300ms" : "0ms",
+						}}
+						unmountOnExit
+					>
+						<CircularProgress
+							color="secondary"
+						/>
+					</Fade>
+				</TableCell>
+			</TableRow>
+		);
+	}
+
 	return (
 		<div className={classes.root}>
 			<Typography
 				variant="h4"
 				component="h4"
+				color="primary"
 				gutterBottom
 			>
 				{selectedCompany.authorId? "": "All"} Finance News
@@ -158,7 +220,12 @@ const NewsList = observer(({controller}: NewsListProps) => {
 				<Table aria-label="newsListTable">
 					<TableHead>
 						<TableRow className={classes.tableRow}>
-							<TableCell />
+							<TableCell>
+								<ArrowUpIcon
+									onClick={() => controller.collapseAllRows()}
+									className={classes.arrowUpCollapse}
+								/>
+							</TableCell>
 							<TableCell>
 								<Typography
 									onClick={() => controller.toggleSort("publish_date")}
@@ -207,41 +274,18 @@ const NewsList = observer(({controller}: NewsListProps) => {
 							</TableCell>
 						</TableRow>
 					</TableHead>
-					<TableBody>
-						{ loading? 
-							<TableRow>
-								<TableCell>
-									<Fade
-										in={loading}
-										style={{
-											transitionDelay: loading ? "300ms" : "0ms",
-										}}
-										unmountOnExit
-									>
-										<CircularProgress
-											color="secondary"
-										/>
-									</Fade>
-								</TableCell>
-							</TableRow>: activeControllers.map((rowController: INewsItemRowController ) => {
-								return (<NewsItem
-											key={rowController.data.news_id}
-											row={rowController}
-										/>)
-									})
-								}
-					</TableBody>
+						{ loading? renderLoading(): renderNewsItemRows() }
 					<TableFooter
 						className={classes.tableFooter}
 					>
 						<TableRow>
 							<TablePagination
-								rowsPerPageOptions={[10, 50, 100, 300, 700, 1000]}
 								colSpan={7}
 								count={controller.totalCount}
 								rowsPerPage={controller.pageSize}
 								page={controller.currentPage}
 								labelDisplayedRows={({ from, to, count }) => `${from}-${to} of ${count}`}
+								rowsPerPageOptions={[10, 50, 100, 300, 700, 1000]}
 								backIconButtonProps={{
 									"aria-label": "prev page",
 								}}

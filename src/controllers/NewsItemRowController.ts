@@ -40,7 +40,7 @@ export class NewsItemRowController implements INewsItemRowController {
 
 			text = text.replace(this.data.content.preamble, "");
 
-			const inlineCSS = "font-size: 20px; color: #349ac3; font-weight: bold; font-style: italic;";
+			const inlineCSS = "font-size: 20px; color: #2e8aaf; font-weight: bold; font-style: italic;";
 			const styledPreamble = `<span style="${inlineCSS}">${preamble}</span>`;
 
 			return `${styledPreamble} ${text.substr(0, 210)}`;
@@ -81,10 +81,6 @@ export class NewsItemRowController implements INewsItemRowController {
 			parentTag: [this.parentTagType],
 			subTags: [this.subTagTypes]
 		}
-	}
-
-	public searchFilterState (): any {
-		return this.parentController.filterViewModel.isDirty;
 	}
 
 	@action

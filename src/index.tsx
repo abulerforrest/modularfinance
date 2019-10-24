@@ -20,6 +20,7 @@ import {
 
 import { NewsDataStore } from "./stores/NewsDataStore";
 import { NewsDataService } from "./services/NewsDataService";
+
 const store = new NewsDataStore(new NewsDataService());
 const newsPageController = new NewsPageController(store);
 

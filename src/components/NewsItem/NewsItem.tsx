@@ -32,14 +32,10 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 			userSelect: "none",
 
 			"&:hover": {
-				backgroundColor: defaultTheme.palette.primary.light
+				backgroundColor: "#fafafa"
 			},
 
-			backgroundColor: row.expanded? defaultTheme.palette.primary.light: defaultTheme.palette.secondary.light
-		},
-
-		html: {
-			margin: 0
+			backgroundColor: row.expanded? "#fafafa": defaultTheme.palette.primary.light
 		},
 
 		tableCell: {
@@ -56,9 +52,10 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 
 		tableCellTitle: {
 			width: 300,
-			verticalAlign: "top",
-			fontSize: 17,
-			fontWeight: "bold"
+			fontSize: 18,
+			color: "#4a4949",
+			fontWeight: "bold",
+			verticalAlign: "top"
 		},
 
 		tableCellDefault: {
@@ -73,10 +70,9 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 
 		chip: {
 			fontSize: 11,
-			marginRight: 5,
-			marginBottom: 5,
 			cursor: "pointer",
 			fontWeight: "bold",
+			margin: "0 5px 5px 0",
 			textTransform: "uppercase",
 			color: defaultTheme.palette.primary.main
 		},
@@ -87,13 +83,13 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 		},
 
 		button: {
-			marginTop: 10,
 			fontSize: 13,
+			marginTop: 10,
 			color: defaultTheme.palette.primary.light,
 			backgroundColor: defaultTheme.palette.primary.main,
 
 			"&:hover": {
-				backgroundColor: defaultTheme.palette.primary.main
+				backgroundColor: defaultTheme.palette.primary.dark
 			}
 		}
 	});
@@ -156,7 +152,6 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 
 		if(row.expanded) {
 			news = <div
-				className={classes.html}
 				dangerouslySetInnerHTML={{__html: row.getNewsText}}
 			/>;
 		}
@@ -169,6 +164,7 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 				{news}
 			</div>
 		);
+
 	}
 
 	const renderArrow = (): React.ReactNode => {
@@ -180,50 +176,50 @@ const NewsItem = observer(({row}: NewsItemProps) => {
 			key={data.news_id} 
 			className={classes.row}
 		>
-		<TableCell
-			className={classes.tableCellDefault}
-			onClick={() => row.toggleExpanded()}
-		>
-			{renderArrow()}
-		</TableCell>
-		 <TableCell
-			className={classes.tableCell}
-			onClick={() => row.toggleExpanded()}
-		>
-			{row.getFormattedDate(data.content.publish_date)}
-		</TableCell>
-		<TableCell 
-			className={classes.tableCellType}
-			onClick={() => row.toggleExpanded()}
-		>
-			{renderParentTag()}
-			{renderSubTags()}
-		</TableCell>
-		<TableCell
-			 className={classes.tableCellTitle}
-			 onClick={() => row.toggleExpanded()}
-		>
-			{data.content.title}
-		</TableCell>
-		<TableCell
-			className={classes.tableCellNews}
-		>
-			<div onClick={() => row.toggleExpanded()}>
-				{renderNews()}
-			</div>
-			{renderNewsButton()}
-		</TableCell>
-		<TableCell 
-			className={classes.tableCellDefault}
-		>
-		 <Chip
-			label={data.properties.lang === "sv"? "swe": "en"}
-			className={classes.chip}
-			variant="outlined"
-		/>
-		 </TableCell>
-		 <TableCell className={classes.tableCellDefault}/>
-		  </TableRow>
+			<TableCell
+				className={classes.tableCellDefault}
+				onClick={() => row.toggleExpanded()}
+			>
+				{renderArrow()}
+			</TableCell>
+			<TableCell
+				className={classes.tableCell}
+				onClick={() => row.toggleExpanded()}
+			>
+				{row.getFormattedDate(data.content.publish_date)}
+			</TableCell>
+			<TableCell 
+				className={classes.tableCellType}
+				onClick={() => row.toggleExpanded()}
+			>
+				{renderParentTag()}
+				{renderSubTags()}
+			</TableCell>
+			<TableCell
+				className={classes.tableCellTitle}
+				onClick={() => row.toggleExpanded()}
+			>
+				{data.content.title}
+			</TableCell>
+			<TableCell
+				className={classes.tableCellNews}
+			>
+				<div onClick={() => row.toggleExpanded()}>
+					{renderNews()}
+				</div>
+				{renderNewsButton()}
+			</TableCell>
+			<TableCell 
+				className={classes.tableCellDefault}
+			>
+				<Chip
+					label={data.properties.lang === "sv"? "swe": "en"}
+					className={classes.chip}
+					variant="outlined"
+				/>
+			</TableCell>
+			 <TableCell className={classes.tableCellDefault}/>
+		</TableRow>
 	);
 });
 

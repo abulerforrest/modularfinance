@@ -15,8 +15,8 @@ interface NewsPageProps {
 const useStyles = makeStyles({
 	root: {
 		display: "flex",
-		flexDirection: "column",
-		height: "100%"
+		height: "100%",
+		flexDirection: "column"
 	}
 });
 
