@@ -52,7 +52,7 @@ export class NewsItemRowController implements INewsItemRowController {
 	public getFormattedDate(date: string): string {
 		const formatted = format(
 			new Date(date),
-			'MMM, Mo, yyyy, hh:mm'
+			'MMM, do, yyyy, hh:mm'
 		  )	
 		return formatted;
 	}

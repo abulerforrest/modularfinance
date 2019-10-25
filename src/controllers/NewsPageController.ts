@@ -34,7 +34,10 @@ import {
 	defaultTableToggleSort
 } from "../helpers/helpers";
 
-import { format } from "date-fns/esm";
+import {
+	format, 
+	isAfter
+} from "date-fns/esm";
 
 export enum DatePickerType {
 	TO,
@@ -104,30 +107,22 @@ implements INewsPageController {
 		for(const controller of this.rowControllers) {
 
 			let languageCheck: boolean = true;
-			let dateRangeCheck: boolean = true;
+			let checkDateRange: boolean = true;
 
 			if(selectedLanguages.length > 0) {
 				languageCheck = selectedLanguages.includes(controller.data.properties.lang);
 			}
 
 			if(selectedToDate !== null && selectedFromDate !== null) {
-
-				const publishDate: Date = new Date(controller.data.content.publish_date);
-				
-				const formattedPublishDate: string = format(publishDate, 'MM/dd/yyyy');
-				const formattedSelectedFromDate: string = format(selectedFromDate, 'MM/dd/yyyy');
-				const formattedSelectedToDate: string = format(selectedToDate, 'MM/dd/yyyy');
-
-				dateRangeCheck = new Date(formattedPublishDate) >= new Date(formattedSelectedFromDate)
-				&& new Date(formattedPublishDate) <=  new Date(formattedSelectedToDate);
-
+				const publishDate: Date = new Date(controller.data.content.publish_date);		
+				checkDateRange = this.calculateDateRange(publishDate, selectedFromDate, selectedToDate);
 			}
 
 			const matchesSearchQuery: boolean = searchQuery.length === 0
 			|| controller.data.content.title.toLowerCase().includes(searchQuery.toLowerCase())
 			|| controller.data.content.text.toLowerCase().includes(searchQuery.toLowerCase())
 
-			if(matchesSearchQuery && dateRangeCheck && languageCheck) {
+			if(matchesSearchQuery && languageCheck && checkDateRange) {
 				filtered.push(controller);
 			}
 		}
@@ -281,6 +276,24 @@ implements INewsPageController {
 			this,
 			data
 		);
+	}
+
+	@action
+	private calculateDateRange(publishDate: Date, selectedFromDate: any, selectedToDate: any) : boolean {
+
+		const formattedPublishDate: string = format(publishDate, "yyyy-MM-dd");
+		const formattedSelectedFromDate: string = format(new Date(selectedFromDate), "yyyy-MM-dd");
+		const formattedSelectedToDate: string = format(new Date(selectedToDate), "yyyy-MM-dd");
+
+		const fromDate = new Date(formattedSelectedFromDate);
+		const toDate = new Date(formattedSelectedToDate)
+		const publishDateConverted = new Date(formattedPublishDate)
+
+		const compareFrom: boolean = isAfter(fromDate, publishDateConverted);
+		const compareTo: boolean = publishDateConverted <= toDate;
+
+		return !compareFrom && compareTo;
+
 	}
 
 	private async load() : Promise<void> {

@@ -172,37 +172,43 @@ const NewsList = observer(({controller}: NewsListProps) => {
 		}
 		else {
 			return(
-				<TableBody>
-					<Typography
-						variant="h6"
-						component="h3"
-						color="primary"
-						className={classes.emptyResultRow}
-					>
-						Filter ended with no results.
-					</Typography>
-				</TableBody>
+				<tbody>
+					<tr>
+						<td>
+							<Typography
+								variant="h6"
+								component="h3"
+								color="primary"
+								className={classes.emptyResultRow}
+							>
+								Filter ended with no results.
+							</Typography>
+						</td>
+					</tr>
+				</tbody>
 			);
 		}
 	}
-
+ 
 	const renderLoading = (): React.ReactNode => {
 		return (
-			<TableRow>
-				<TableCell>
-					<Fade
-						in={loading}
-						style={{
-							transitionDelay: loading ? "300ms" : "0ms",
-						}}
-						unmountOnExit
-					>
-						<CircularProgress
-							color="secondary"
-						/>
-					</Fade>
-				</TableCell>
-			</TableRow>
+			<tbody>		
+				<TableRow>
+					<TableCell>
+						<Fade
+							in={loading}
+							style={{
+								transitionDelay: loading ? "300ms" : "0ms",
+							}}
+							unmountOnExit
+						>
+							<CircularProgress
+								color="secondary"
+							/>
+						</Fade>
+					</TableCell>
+				</TableRow>
+			</tbody>
 		);
 	}
 
